@@ -1,55 +1,40 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import MovieCard from './MovieCard';
+import axios from 'axios';
+import { getRandomMovieName } from '../utils';
+const MOVIE_URL = "https://www.omdbapi.com/?apikey=66aecd64&t=";
 
 function SearchForm() {
 
     const [searchValue, setSearchValue] = useState();
-    const [movieDetail, setMovieDetail] = useState({
-        "Title": "Guardians of the Galaxy Vol. 2",
-        "Year": "2017",
-        "Rated": "PG-13",
-        "Released": "05 May 2017",
-        "Runtime": "136 min",
-        "Genre": "Action, Adventure, Comedy",
-        "Director": "James Gunn",
-        "Writer": "James Gunn, Dan Abnett, Andy Lanning",
-        "Actors": "Chris Pratt, Zoe Saldana, Dave Bautista",
-        "Plot": "The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord's encounter with his father, the ambitious celestial being Ego.",
-        "Language": "English",
-        "Country": "United States",
-        "Awards": "Nominated for 1 Oscar. 15 wins & 60 nominations total",
-        "Poster": "https://m.media-amazon.com/images/M/MV5BNjM0NTc0NzItM2FlYS00YzEwLWE0YmUtNTA2ZWIzODc2OTgxXkEyXkFqcGdeQXVyNTgwNzIyNzg@._V1_SX300.jpg",
-        "Ratings": [
-            {
-                "Source": "Internet Movie Database",
-                "Value": "7.6/10"
-            },
-            {
-                "Source": "Rotten Tomatoes",
-                "Value": "85%"
-            },
-            {
-                "Source": "Metacritic",
-                "Value": "67/100"
-            }
-        ],
-        "Metascore": "67",
-        "imdbRating": "7.6",
-        "imdbVotes": "741,862",
-        "imdbID": "tt3896198",
-        "Type": "movie",
-        "DVD": "10 Jul 2017",
-        "BoxOffice": "$389,813,101",
-        "Production": "N/A",
-        "Website": "N/A",
-        "Response": "True"
-    })
-    const handleOnSubmit = (e) => {
+    const [movieDetail, setMovieDetail] = useState();
+
+    const fetchRandomMovie = async () => {
+        try {
+            const randomMovie = getRandomMovieName()
+            const { data } = await axios.get(`${MOVIE_URL}${randomMovie}`)
+            setMovieDetail(data);
+        } catch (e) {
+            console.log("error", e)
+        }
+    }
+    // useEffect(() => {}, [dependencies])
+    useEffect(() => {
+        fetchRandomMovie()
+    }, [])
+    const handleOnSubmit = async (e) => {
         e.preventDefault();
-        console.log("I am submitted")
-        console.log(" Now searching movie", searchValue)
+
         // TODO: Make API call to actually search the movie
+        // https://www.omdbapi.com/?t=titanic&apikey=66aecd64
+        try {
+            const { data } = await axios.get(`${MOVIE_URL}${searchValue}`)
+            setMovieDetail(data);
+        } catch (e) {
+            console.log("Error", e)
+        }
+
     }
 
     const handleOnChange = (e) => {
