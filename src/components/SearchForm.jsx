@@ -9,7 +9,9 @@ function SearchForm({ addMovieToList }) {
 
     const [searchValue, setSearchValue] = useState();
     const [movieDetail, setMovieDetail] = useState();
-
+    const removeMovieDetail = () => {
+        setMovieDetail({})
+    }
     const fetchRandomMovie = async () => {
         try {
             const randomMovie = getRandomMovieName()
@@ -61,7 +63,7 @@ function SearchForm({ addMovieToList }) {
                 </Row>
             </Form>
             {/* TODO Render the movie detail once it comes from api */}
-            {movieDetail?.imdbID && <MovieCard movie={movieDetail} addMovieToList={addToListAndRemoveMovie} />}
+            {movieDetail?.imdbID && <MovieCard movie={movieDetail} addMovieToList={addToListAndRemoveMovie} removeMovie={removeMovieDetail} />}
         </div>
     )
 }

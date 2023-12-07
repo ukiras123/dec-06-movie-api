@@ -2,7 +2,7 @@ import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-function MovieCard({ movie, addMovieToList }) {
+function MovieCard({ movie, addMovieToList, removeMovie }) {
     return (
         <Card style={{ width: '18rem' }}>
             <a href={`https://www.imdb.com/title/${movie.imdbID}/`} target="_blank" rel="noreferrer">
@@ -28,7 +28,14 @@ function MovieCard({ movie, addMovieToList }) {
                         flex: "1"
                     }}
                         onClick={() => addMovieToList(movie, "boring")}
-                    >Boring</Button>
+                    >
+                        Boring</Button>
+                    <Button variant="danger" style={{
+                        flex: "1"
+                    }}
+                    onClick={removeMovie}
+                    >
+                        Delete</Button>
                 </div>
             </Card.Body>
         </Card >
