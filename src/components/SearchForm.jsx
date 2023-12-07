@@ -5,7 +5,7 @@ import axios from 'axios';
 import { getRandomMovieName } from '../utils';
 const MOVIE_URL = "https://www.omdbapi.com/?apikey=66aecd64&t=";
 
-function SearchForm() {
+function SearchForm({ addMovieToList }) {
 
     const [searchValue, setSearchValue] = useState();
     const [movieDetail, setMovieDetail] = useState();
@@ -36,6 +36,10 @@ function SearchForm() {
         }
 
     }
+    const addToListAndRemoveMovie = (movie, choice) => {
+        addMovieToList(movie, choice)
+        setMovieDetail({})
+    }
 
     const handleOnChange = (e) => {
         const { value } = e.target;
@@ -57,7 +61,7 @@ function SearchForm() {
                 </Row>
             </Form>
             {/* TODO Render the movie detail once it comes from api */}
-            {movieDetail && <MovieCard movie={movieDetail} />}
+            {movieDetail?.imdbID && <MovieCard movie={movieDetail} addMovieToList={addToListAndRemoveMovie} />}
         </div>
     )
 }

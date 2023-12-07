@@ -7,7 +7,12 @@ import SearchForm from './components/SearchForm';
 import MovieList from './components/MovieList';
 
 function App() {
+  const [movieList, setMovieList] = useState([])
 
+  const addMovieToList = (movie, choice) => {
+    const movieWithChoice = { ...movie, choice }
+    setMovieList([...movieList, movieWithChoice])
+  }
   return (<>
     <div className="wrapper bg-dark text-warning">
       <Container>
@@ -18,9 +23,9 @@ function App() {
           </Col>
         </Row>
         {/* Search Form */}
-        <SearchForm />
+        <SearchForm addMovieToList={addMovieToList} />
         {/* Movie List */}
-        <MovieList />
+        <MovieList movieList={movieList} />
       </Container>
     </div>
   </>
