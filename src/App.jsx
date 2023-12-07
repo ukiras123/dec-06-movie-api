@@ -9,10 +9,17 @@ import MovieList from './components/MovieList';
 function App() {
   const [movieList, setMovieList] = useState([])
 
+  const removeFromMovieList = (movie) => {
+    console.log("I am removing....", movie)
+    const updatedMovie = movieList.filter(mov => mov.imdbID !== movie.imdbID);
+    setMovieList(updatedMovie)
+  }
   const addMovieToList = (movie, choice) => {
     const movieWithChoice = { ...movie, choice }
     setMovieList([...movieList, movieWithChoice])
   }
+
+  // 1 Remove from movielist
   return (<>
     <div className="wrapper bg-dark text-warning">
       <Container>
@@ -25,7 +32,9 @@ function App() {
         {/* Search Form */}
         <SearchForm addMovieToList={addMovieToList} />
         {/* Movie List */}
-        <MovieList movieList={movieList} />
+        <MovieList movieList={movieList} removeFromMovieList={removeFromMovieList} />
+        {/* <MovieList movieList={movieList} removeFromlist={} /> */}
+
       </Container>
     </div>
   </>

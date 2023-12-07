@@ -13,6 +13,9 @@ function MovieCard({ movie, addMovieToList, removeMovie }) {
                 <Card.Text>
                     <div>Rating: {movie.imdbRating} </div>
                     <div>Actors: {movie.Actors} </div>
+                    {movie?.choice && <div style={{
+                        color: movie.choice === 'awesome' ? 'green' : "yellow"
+                    }}>Choice: {movie.choice} </div>}
                     <div style={
                         {
                             color: "purple"
@@ -21,19 +24,22 @@ function MovieCard({ movie, addMovieToList, removeMovie }) {
                     }>Plot: {movie.Plot}</div>
                 </Card.Text>
                 <div className='d-flex justify-content-between gap-1'>
-                    <Button variant="success" style={{
+
+                    {addMovieToList && <><Button variant="success" style={{
                         flex: "1"
                     }} onClick={() => addMovieToList(movie, "awesome")}>Awesome</Button>
-                    <Button variant="warning" style={{
-                        flex: "1"
-                    }}
-                        onClick={() => addMovieToList(movie, "boring")}
-                    >
-                        Boring</Button>
+                        <Button variant="warning" style={{
+                            flex: "1"
+                        }}
+                            onClick={() => addMovieToList(movie, "boring")}
+                        >  Boring</Button>
+                    </>
+                    }
+
                     <Button variant="danger" style={{
                         flex: "1"
                     }}
-                    onClick={removeMovie}
+                        onClick={() => removeMovie(movie)}
                     >
                         Delete</Button>
                 </div>

@@ -33,6 +33,7 @@ function SearchForm({ addMovieToList }) {
         try {
             const { data } = await axios.get(`${MOVIE_URL}${searchValue}`)
             setMovieDetail(data);
+            setSearchValue("")
         } catch (e) {
             console.log("Error", e)
         }
@@ -52,7 +53,7 @@ function SearchForm({ addMovieToList }) {
             <Form onSubmit={handleOnSubmit}>
                 <Row>
                     <Col className='col-9'>
-                        <Form.Control onChange={handleOnChange} required type="text" placeholder="Search by Movie" />
+                        <Form.Control value={searchValue} onChange={handleOnChange} required type="text" placeholder="Search by Movie" />
                     </Col>
                     <Col className='col-3 d-grid'>
                         <Button variant="primary" type="submit">

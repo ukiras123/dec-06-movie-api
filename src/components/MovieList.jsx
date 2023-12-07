@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import MovieCard from './MovieCard'
 import { Button, ButtonGroup } from 'react-bootstrap'
 
-function MovieList({ movieList }) {
+function MovieList({ movieList, removeFromMovieList }) {
 
     const [filteredList, setFilteredList] = useState([])
 
@@ -32,7 +32,7 @@ function MovieList({ movieList }) {
                     <div className='d-flex flex-wrap gap-3 justify-content-between'>
                         {
                             filteredList.map(movie => {
-                                return <MovieCard movie={movie} />
+                                return <MovieCard movie={movie} removeMovie={removeFromMovieList} />
                             })
                         }
                     </div>
