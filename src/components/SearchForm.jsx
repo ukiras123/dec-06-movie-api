@@ -7,8 +7,8 @@ const MOVIE_URL = "https://www.omdbapi.com/?apikey=66aecd64&t=";
 
 function SearchForm({ addMovieToList }) {
 
-    const [searchValue, setSearchValue] = useState();
-    const [movieDetail, setMovieDetail] = useState();
+    const [searchValue, setSearchValue] = useState("");
+    const [movieDetail, setMovieDetail] = useState({});
     const removeMovieDetail = () => {
         setMovieDetail({})
     }
