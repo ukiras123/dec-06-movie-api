@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import MovieCard from './MovieCard'
 import { Button, ButtonGroup } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeMovieFromList } from '../redux/slices/movieSlice'
 
-function MovieList({ movieList, removeFromMovieList }) {
-
+function MovieList() {
+    // { movieList, removeFromMovieList }
+    const movieList = useSelector(state => state.movieInfo.movieList)
+    const dispatch = useDispatch()
     const [filteredList, setFilteredList] = useState([])
 
+    const removeFromMovieList = (movie) => {
+        dispatch(removeMovieFromList(movie))
+    }
     useEffect(() => {
         setFilteredList(movieList)
     }, [movieList])
@@ -21,7 +28,7 @@ function MovieList({ movieList, removeFromMovieList }) {
     }
     return (
         <>
-            {movieList.length > 0 && (
+            {movieList && movieList.length > 0 && (
                 <>
                     <hr />
                     <ButtonGroup aria-label="Basic example">

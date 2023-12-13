@@ -3,10 +3,13 @@ import { Button, Col, Form, Row } from 'react-bootstrap'
 import MovieCard from './MovieCard';
 import axios from 'axios';
 import { getRandomMovieName } from '../utils';
+import { useDispatch } from 'react-redux';
+import { addMovieToList } from '../redux/slices/movieSlice';
 const MOVIE_URL = "https://www.omdbapi.com/?apikey=66aecd64&t=";
 
-function SearchForm({ addMovieToList }) {
+function SearchForm() {
 
+    const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState("");
     const [movieDetail, setMovieDetail] = useState({});
     const removeMovieDetail = () => {
@@ -40,7 +43,8 @@ function SearchForm({ addMovieToList }) {
 
     }
     const addToListAndRemoveMovie = (movie, choice) => {
-        addMovieToList(movie, choice)
+        // addMovieToList(movie, choice)
+        dispatch(addMovieToList({ ...movie, choice }))
         setMovieDetail({})
     }
 
